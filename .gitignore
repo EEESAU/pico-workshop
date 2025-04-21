@@ -1,4 +1,10 @@
 cmake-*
+CMakeFiles
+picotool
 
 .idea/workspace.xml
 .idea/usage-statistics.xml
+
+build
+
+_deps/
