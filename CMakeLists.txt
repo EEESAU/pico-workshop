@@ -14,7 +14,7 @@ pico_sdk_init()
 
 # Setup basic blink program
 add_executable(blink
-        main.c
+        blink.c
 )
 
 pico_add_extra_outputs(blink)

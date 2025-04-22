@@ -2,8 +2,7 @@ cmake-*
 CMakeFiles
 picotool
 
-.idea/workspace.xml
-.idea/usage-statistics.xml
+.idea/
 
 build
 
