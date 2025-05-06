@@ -1,4 +1,3 @@
-#include "boards/pico.h"
 #include "pico/stdlib.h"
 
 // Our LED is connected to GP15 (Pin 20)

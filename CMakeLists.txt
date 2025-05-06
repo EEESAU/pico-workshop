@@ -23,4 +23,5 @@ target_link_libraries(blink pico_stdlib)
 target_link_libraries(blink pico_cyw43_arch_none)
 
 
+add_subdirectory(basic-programming)
 add_subdirectory(basic-electronics)
