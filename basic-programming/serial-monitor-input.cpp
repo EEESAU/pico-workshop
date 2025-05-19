@@ -41,8 +41,10 @@ int main() {
     // Create a string to hold the input
     char input[21] = {'\0'};
 
-    // Wait 1 second for the serial connection to setup.
-    sleep_ms(1000);
+    // Wait for the serial connection to setup.
+    while (!stdio_usb_connected()) {
+        sleep_ms(100);
+    }
 
     while (true) {
         stdio_printf("What is the password?\n");

@@ -4,6 +4,8 @@
 constexpr uint led_pin = 15;
 
 [[noreturn]] int main() {
+    stdio_init_all();
+
     // Initialise the pin and make it an output.
     gpio_init(led_pin);
     gpio_set_dir(led_pin, GPIO_OUT);

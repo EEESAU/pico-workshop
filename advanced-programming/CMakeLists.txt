@@ -1,0 +1,5 @@
+add_executable(c-plus-plus c-plus-plus.cpp)
+target_link_libraries(c-plus-plus pico_stdlib pico_cyw43_arch_none)
+pico_enable_stdio_usb(c-plus-plus 1)
+pico_enable_stdio_uart(c-plus-plus 0)
+pico_add_extra_outputs(c-plus-plus)
