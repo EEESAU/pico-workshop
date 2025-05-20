@@ -1,8 +1,9 @@
 cmake-*
 CMakeFiles
-picotool
+picotool/
 
 .idea/
+.vscode/
 
 build
 
