@@ -28,7 +28,7 @@ project(pico-workshop C CXX ASM)
 
 pico_sdk_init()
 
-# Setup basic blink program
+# Setup basic LED program
 add_executable(led-tester
         led-tester.c
 )
