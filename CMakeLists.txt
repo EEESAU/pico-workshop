@@ -36,6 +36,9 @@ pico_add_extra_outputs(led-tester)
 target_link_libraries(led-tester pico_stdlib pico_cyw43_arch_none)
 
 
-add_subdirectory(basic-programming)
-add_subdirectory(basic-electronics)
-add_subdirectory(advanced-programming)
+add_subdirectory(1-basic-programming)
+add_subdirectory(2-basic-electronics)
+add_subdirectory(3-advanced-programming)
+add_subdirectory(4-advanced-electronics)
+add_subdirectory(5-usb)
+add_subdirectory(6-wireless)
