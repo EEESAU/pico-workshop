@@ -22,3 +22,13 @@ add_executable(pwm-piezo pwm-piezo.cpp)
 target_link_libraries(pwm-piezo pico_stdlib hardware_pwm pico_cyw43_arch_none)
 pico_add_extra_outputs(pwm-piezo)
 pico_enable_stdio_usb(pwm-piezo 1)
+
+add_executable(adc-potentiometer adc-potentiometer.cpp)
+target_link_libraries(adc-potentiometer pico_stdlib hardware_adc hardware_pwm pico_cyw43_arch_none)
+pico_add_extra_outputs(adc-potentiometer)
+pico_enable_stdio_usb(adc-potentiometer 1)
+
+add_executable(adc-temperature adc-temperature.cpp)
+target_link_libraries(adc-temperature pico_stdlib hardware_adc hardware_pwm pico_cyw43_arch_none)
+pico_add_extra_outputs(adc-temperature)
+pico_enable_stdio_usb(adc-temperature 1)
