@@ -1,0 +1,5 @@
+add_executable(ssd1306_i2c ssd1306_i2c.cpp)
+target_link_libraries(ssd1306_i2c pico_stdlib pico_cyw43_arch_none hardware_i2c)
+pico_enable_stdio_usb(ssd1306_i2c 1)
+pico_enable_stdio_uart(ssd1306_i2c 0)
+pico_add_extra_outputs(ssd1306_i2c)
