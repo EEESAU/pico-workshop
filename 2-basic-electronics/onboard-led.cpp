@@ -11,7 +11,7 @@
 
     while (true) {
         // Tell the wireless module to turn on the LED.
-            cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
 
         sleep_ms(500);
 

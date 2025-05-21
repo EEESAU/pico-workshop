@@ -3,42 +3,78 @@
 #include <cstdint>
 #include <cstdio>
 
-constexpr uint32_t FLAG_VALUE = 123;
+#include "pico/cyw43_arch.h"
+#include "pico/util/queue.h"
+
+struct queue_entry {
+    int32_t (*func)(int32_t) = nullptr;
+    int32_t data = 0;
+};
+
+queue_t call_queue;
+queue_t results_queue;
 
 [[noreturn]] void core1_entry() {
-    // Send a value to core 0 to let it know we are ready.
-    multicore_fifo_push_blocking(FLAG_VALUE);
+    queue_entry entry;
+    while (true) {
+        // Wait for a message from core 0.
+        queue_remove_blocking(&call_queue, &entry);
 
-    uint32_t g = multicore_fifo_pop_blocking();
+        int32_t result = 0;
 
-    if (g != FLAG_VALUE)
-        printf("Hmm, that's not right on core 1!\n");
-    else
-        printf("Its all gone well on core 1!");
+        // Run the code to calculate the result.
+        if (entry.func != nullptr)
+            result = entry.func(entry.data);
 
-    while (true)
-        tight_loop_contents();
+        // If the result is odd, turn on the LED.
+        if (result % 2 == 1)
+            cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
+        else
+            cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, false);
+
+        // Send the result back to core 0.
+        queue_add_blocking(&results_queue, &result);
+    }
 }
 
-void main() {
+// Calculate square of a number.
+int32_t square(int32_t in) {
+    return in * in;
+}
+
+int main() {
     stdio_init_all();
+
+    cyw43_arch_init();
 
     while (!stdio_usb_connected())
         sleep_ms(100);
 
-    printf("Hello, multicore!\n");
+    stdio_printf("Welcome to multicore!\n");
+    stdio_printf("I'm core 0, but I'm too lazy to do maths, so I'll make core 1 do it all for me!\n");
+
+    // Initialise the queues to send messages between the cores.
+    queue_init(&call_queue, sizeof(queue_entry), 2);
+    queue_init(&results_queue, sizeof(int32_t), 2);
 
     multicore_launch_core1(core1_entry);
 
-    // Wait for it to start up
+    for (int i = 0; i < 100; i++) {
+        stdio_printf("Square of %i is... ", i);
 
-    uint32_t g = multicore_fifo_pop_blocking();
+        // Send data to core 1
+        // Tell it to find the square of i.
+        queue_entry entry = {square, i};
+        queue_add_blocking(&call_queue, &entry);
 
-    if (g != FLAG_VALUE)
-        printf("Hmm, that's not right on core 0!\n");
-    else {
-        multicore_fifo_push_blocking(FLAG_VALUE);
-        printf("It's all gone well on core 0!");
+        // Wait for response from core 1
+        int32_t result = 0;
+        queue_remove_blocking(&results_queue, &result);
+
+        stdio_printf("%i\n", result);
+
+        sleep_ms(1000);
     }
 
+    stdio_printf("Finished!\n");
 }
