@@ -2,7 +2,7 @@
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 
-// Our LED is connected to GP15 (Pin 20)
+// Our button is connected to GP15 (Pin 20)
 constexpr uint button_pin = 15;
 
 [[noreturn]] int main() {
