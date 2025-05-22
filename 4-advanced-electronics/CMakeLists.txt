@@ -15,3 +15,9 @@ target_link_libraries(accelerometer pico_stdlib pico_cyw43_arch_none hardware_i2
 pico_enable_stdio_usb(accelerometer 1)
 pico_enable_stdio_uart(accelerometer 0)
 pico_add_extra_outputs(accelerometer)
+
+add_executable(output-expander output-expander.cpp MCP23x08_registers.h MCP23008.cpp MCP23008.h)
+target_link_libraries(output-expander pico_stdlib pico_cyw43_arch_none hardware_i2c)
+pico_enable_stdio_usb(output-expander 1)
+pico_enable_stdio_uart(output-expander 0)
+pico_add_extra_outputs(output-expander)
