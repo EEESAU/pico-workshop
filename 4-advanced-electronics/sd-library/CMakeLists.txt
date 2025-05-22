@@ -23,6 +23,7 @@ target_include_directories(FatFs_SPI INTERFACE
 target_link_libraries(FatFs_SPI INTERFACE
         hardware_spi
         hardware_dma
-        hardware_rtc
+        pico_aon_timer
+        pico_util
         pico_stdlib
 )

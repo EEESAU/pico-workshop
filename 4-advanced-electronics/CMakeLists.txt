@@ -21,3 +21,10 @@ target_link_libraries(output-expander pico_stdlib pico_cyw43_arch_none hardware_
 pico_enable_stdio_usb(output-expander 1)
 pico_enable_stdio_uart(output-expander 0)
 pico_add_extra_outputs(output-expander)
+
+add_subdirectory(sd-library)
+add_executable(sd-card sd-card.cpp sd-library/hardware_config.c)
+target_link_libraries(sd-card pico_stdlib pico_cyw43_arch_none hardware_spi FatFs_SPI)
+pico_enable_stdio_usb(sd-card 1)
+pico_enable_stdio_uart(sd-card 0)
+pico_add_extra_outputs(sd-card)
